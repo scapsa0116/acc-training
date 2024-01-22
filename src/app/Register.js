@@ -1,23 +1,26 @@
-import fire from 'f../fire';
+'use client'
+import {useState, useEffect} from 'react';
+
+import fire from '../fire';
 import {Login} from './Login';
 import {Hero} from './Hero';
-import '../App.css'
+import './App.css'
 
 function Register() {
 
 const [user, setUser] = useState('')
-const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
 const [passwordError, setPasswordError] = useState('')
 const [emailError, setEmailError] = useState('')
 const [hasAccount, setHasAccount] = useState('')
+const [email, setEmail] = useState('')
 
 
-const clearImputs = () => {
+const clearInputs = () => {
     setEmail("")
     setPassword("")
 }
-
+// console.log(fire)
 
 const clearErrors = () => {
 
@@ -65,20 +68,21 @@ const handleLogout = () => {
     fire.auth().signOut();
 }
 
-const authListner = () => {
-    fire.auth().onAuthStateChanged((user) => {
-        if (user) {
-            clearImputs();
-            setUser(user);
+// const authListener = () => {
+//     fire
+//     .auth().onAuthStateChanged((user) => {
+//     if (user) {
+//     clearInputs();
+//     setUser(user);
+//     } else {
+//     setUser("")
+//     }
+//     })
+//     }
 
-        } else {
-            setUser("")
-        }
-    })}
-
-    useEffect(() => {
-        authListner();
-     }, [])
+//     useEffect(() => {
+//         authListener();
+//      }, [])
 
      return(
         <div className = "App">        
@@ -88,12 +92,17 @@ const authListner = () => {
                 <Hero handleLogout = {handleLogout}/> 
             ) : (
                 <Login
-                email = {email}
-                setEmail = {setEmail}
-                passwword = {password}
-                setPassword = {setPassword}
-                handleLogin = {handleLogin}
-                
+                email={email}
+setEmail={setEmail}
+password={password}
+setPassword={setPassword}
+handleLogin={handleLogin}
+handleSignup={handleSignup}
+hasAccount={hasAccount}
+setHasAccount={setHasAccount}
+emailError={emailError}
+passwordError={passwordError}
+
 
                 />
 
@@ -109,3 +118,4 @@ const authListner = () => {
 
 
 }
+export default Register
